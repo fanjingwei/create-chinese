@@ -13,7 +13,7 @@ def getBackGroud():
 	yStart = random.randint(0,yEnd)
 	return im.crop((xStart,yStart,xStart+48,yStart+48))
 
-def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, text, textlable, num, font_size):
+def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, ch, chlable, num, font_size):
 	im = Image.new("1", (48, 48), (255))
 	imRGB = getBackGroud()
 	
@@ -28,8 +28,8 @@ def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, text, textlable, num,
 	#xp = 4 #固定 x
 	#yp = -2 #固定 y
 	
-	dr.text((xp, yp), text, font=font, fill="#000000")
-	drRGB.text((xp, yp), text, font=font, fill="#000000")
+	dr.text((xp, yp), ch, font=font, fill="#000000")
+	drRGB.text((xp, yp), ch, font=font, fill="#000000")
 	#im.show()
 	numstr = str(num)
 	pad = len("10000") - len(numstr) 
@@ -39,8 +39,8 @@ def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, text, textlable, num,
 		pad-=1
 	realNumStr += numstr
 	
-	#im.save("picture/"+realNumStr+"_"+text+".png")
-	#imRGB.save("picture/"+realNumStr+"_"+text+"RGB.png")
+	#im.save("picture/"+realNumStr+"_"+ch+".png")
+	#imRGB.save("picture/"+realNumStr+"_"+ch+"RGB.png")
 	
 	image_array = im.load()
 	array_rgb = imRGB.load()
@@ -59,7 +59,7 @@ def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, text, textlable, num,
 				frgblable.write(struct.pack("B",1))
 			x+=1
 		y+=1
-	flable.write(struct.pack("B",textlable))
+	flable.write(struct.pack("B",chlable))
 	
 	x=0
 	y=0
@@ -71,7 +71,6 @@ def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, text, textlable, num,
 			frgbtrain.write(struct.pack("B",array_rgb[x,y][2]))
 			x+=1
 		y+=1
-
 	return
 		
 def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
@@ -114,6 +113,8 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 		#size = random.randint(32,40) #随机字大小
 		size = 40 #固定字体
 		textlable = random.choice(choice)
+		if textlable > 100:
+			print "error:",choice
 		chNumCurrentCount[textlable] += 1
 		if chNumCurrentCount[textlable] == imagePerCh:
 			choice.remove(textlable)
@@ -127,8 +128,8 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 	frgbtrain.close()
 	frgblable.close()
 		
-text = u"赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧"
-#text = u"赵钱孙李周吴郑王冯陈"
+#text = u"赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧"
+text = u"赵钱孙李周吴郑王冯陈"
 styles = ["FZSTK.TTF", #方正舒体
 "FZYTK.TTF", #方正姚体
 "simfang.ttf", #仿宋
