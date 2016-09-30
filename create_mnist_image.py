@@ -82,21 +82,21 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 		choice.append(i)
 		i+=1
 		
-	frgbtrain = open("rgb_"+dataFileName,"w")
+	frgbtrain = open("rgb_"+dataFileName,"wb")
 	frgbtrain.write(struct.pack("!I",2051)) #magic num
 	frgbtrain.write(struct.pack("!I",imagePerCh*chNum)) #image num
 	frgbtrain.write(struct.pack("!I",48)) #h
 	frgbtrain.write(struct.pack("!I",48)) #w
 	frgbtrain.write(struct.pack("!I",3)) #colord
 	
-	frgblable = open("rgb_"+dataLableName,"w")
+	frgblable = open("rgb_"+dataLableName,"wb")
 	frgblable.write(struct.pack("!I",2051)) #magic num
 	frgblable.write(struct.pack("!I",imagePerCh*chNum)) #image num
 	frgblable.write(struct.pack("!I",48)) #h
 	frgblable.write(struct.pack("!I",48)) #w
 	frgblable.write(struct.pack("!I",2)) #colord
 	
-	ftrain = open(dataFileName,"w")
+	ftrain = open(dataFileName,"wb")
 	#需要字节序转换，加上'!'
 	ftrain.write(struct.pack("!I",2051)) #magic num
 	ftrain.write(struct.pack("!I",imagePerCh*chNum)) #image num
@@ -104,7 +104,7 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 	ftrain.write(struct.pack("!I",48)) #w
 	ftrain.write(struct.pack("!I",1)) #colord
 
-	flable = open(dataLableName,"w")
+	flable = open(dataLableName,"wb")
 	flable.write(struct.pack("!I",2049)) #magic num
 	flable.write(struct.pack("!I",imagePerCh*chNum)) #image num
 	count = 0
