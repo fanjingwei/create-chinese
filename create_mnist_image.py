@@ -39,8 +39,8 @@ def createOne48x48Ch(ftrain, flable, frgbtrain, frgblable, ch, chlable, num, fon
 		pad-=1
 	realNumStr += numstr
 	
-	#im.save("picture/"+realNumStr+"_"+ch+".png")
-	#imRGB.save("picture/"+realNumStr+"_"+ch+"RGB.png")
+	im.save("picture/"+realNumStr+"_"+ch+".png")
+	imRGB.save("picture/"+realNumStr+"_"+ch+"RGB.png")
 	
 	image_array = im.load()
 	array_rgb = imRGB.load()
@@ -107,6 +107,7 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 	flable = open(dataLableName,"wb")
 	flable.write(struct.pack("!I",2049)) #magic num
 	flable.write(struct.pack("!I",imagePerCh*chNum)) #image num
+	flable.write(struct.pack("!I",chNum)) #class num
 	count = 0
 	totale = chNum*imagePerCh
 	while count < totale:
@@ -128,7 +129,7 @@ def create48x48Data(text,chNum,imagePerCh,dataFileName,dataLableName):
 	frgbtrain.close()
 	frgblable.close()
 		
-#text = u"赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧"
+#text = u"赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧尹"
 text = u"赵钱孙李周吴郑王冯陈"
 styles = ["FZSTK.TTF", #方正舒体
 "FZYTK.TTF", #方正姚体

@@ -80,7 +80,8 @@ def dense_to_one_hot(labels_dense, num_classes):
   return labels_one_hot
 
 
-def extract_labels(filename, one_hot=False, num_classes=10):
+#def extract_labels(filename, one_hot=False, num_classes=10):
+def extract_labels(filename, one_hot=False):
   """Extract the labels into a 1D uint8 numpy array [index]."""
   print('Extracting', filename)
   with tf.gfile.Open(filename, 'rb') as f, gzip.GzipFile(fileobj=f) as bytestream:
@@ -90,6 +91,7 @@ def extract_labels(filename, one_hot=False, num_classes=10):
           'Invalid magic number %d in MNIST label file: %s' %
           (magic, filename))
     num_items = _read32(bytestream)
+    num_classes = _read32(bytestream)
     buf = bytestream.read(num_items)
     labels = numpy.frombuffer(buf, dtype=numpy.uint8)
     if one_hot:
